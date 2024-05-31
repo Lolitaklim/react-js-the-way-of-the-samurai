@@ -1,0 +1,18 @@
+.nav {
+  grid-area: n;
+  background-color: rgb(226, 85, 108);
+}
+
+.item {
+  padding: 5px;
+}
+
+.navlink {
+  color: azure;
+  text-decoration: none;
+}
+
+.active {
+  color: black;
+  border: 1px solid black;
+}
