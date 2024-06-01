@@ -1,12 +1,21 @@
+import { useRef } from 'react'
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
 
-const MyPosts = () => {
-  let postData = [
-    { id: 1, message: 'hi haw a y', likesCount: 12 },
-    { id: 2, message: 'its my first post', likesCount: 8 },
-    { id: 3, message: 'its my second post', likesCount: 8 },
-  ]
+const MyPosts = (props) => {
+  const newPostElement = useRef()
+
+  const addPost = () => {
+    props.addPost()
+    // props.dispatch(addPostActionCreator())
+  }
+
+  const onPostChange = () => {
+    const text = newPostElement.current.value
+    props.updateNewPostText(text)
+
+    // props.dispatch(updateNewPostActionCreator(text))
+  }
 
   return (
     <div className={s.postBlock}>
@@ -14,18 +23,25 @@ const MyPosts = () => {
       <div>
         <div>
           {' '}
-          <textarea>add post</textarea>
+          <textarea
+            ref={newPostElement}
+            value={props.newPostText}
+            onChange={onPostChange}
+          ></textarea>
         </div>
         <div>
-          <button>add post</button>
+          <button onClick={addPost}>add post</button>
         </div>
       </div>
       <div className={s.posts}>
-        {postData.map((p) => (
-          <Post message={p.message} id={p.id} likesCount={p.likesCount} />
+        {props.posts.map((p) => (
+          <Post
+            key={p.id}
+            message={p.message}
+            id={p.id}
+            likesCount={p.likesCount}
+          />
         ))}
-        {/* <Post message="hello" />
-        <Post message="haw" /> */}
       </div>
     </div>
   )
